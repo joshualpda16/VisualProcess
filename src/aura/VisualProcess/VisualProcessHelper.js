@@ -11,13 +11,14 @@
         appEvent.fire();
     },
     
-    notifyUpdate : function(localId, type, result){
+    notifyUpdate : function(localId, type, result, message){
         var appEvent = $A.get("e.c:VisualProcessEventNotifyUpdate");
         
         appEvent.setParams({
             "type":type,
             "id":localId,
-            "success":result
+            "success":result,
+            "message":message
         });
         
         appEvent.fire();

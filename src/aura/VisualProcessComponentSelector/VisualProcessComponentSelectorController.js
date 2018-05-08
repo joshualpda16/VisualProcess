@@ -18,13 +18,14 @@
     },
 
     addingComponent: function(component, event, helper){
-        var cmpName = event.getSource().get('v.value');
+        var type = event.getSource().get('v.value');
 
         //Fire event        
         var appEvent = $A.get("e.c:VisualProcessEventAddingComponent");
         
         appEvent.setParams({
-            "type":cmpName
+            "type":type.name,
+            "label":type.label
         });
         
         appEvent.fire();

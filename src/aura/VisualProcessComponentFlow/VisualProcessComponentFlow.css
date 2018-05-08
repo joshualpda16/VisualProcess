@@ -46,3 +46,56 @@
 .THIS .vpc-padding-small{
     padding: 10px;
 }
+
+.THIS .addCmpButton{
+    display: none;
+    position: relative;
+    top: -4px;
+}
+
+.THIS .contAddCmpButton:hover .addCmpButton{
+    display: block;
+}
+
+.THIS .statusIcon:hover .slds-popover{
+    display: inline-block;
+}
+
+.THIS .slds-popover:hover{
+    display: inline-block;
+}
+
+.THIS .slds-popover{
+    display: none;
+    position: absolute;
+    margin-top: -15px;
+    margin-left: 20px;
+}
+
+.THIS .slds-popover__body{
+    word-wrap: break-word;
+}
+
+.THIS .disableStep{
+    background-color: rgb(0,0,0,0.3);;
+    position: absolute;
+    height: 100%;
+    z-index: 99999999;
+    right: 0px;
+    width: 100%;
+    top: 0px;
+}
+
+.THIS .vpc-rel{
+    position: relative;
+}
+
+.THIS .moveStepBtn{
+    display: none;
+    position: relative;
+    top: -4px;
+}
+
+.THIS .contMoveStep:hover .moveStepBtn{
+    display: block;
+}

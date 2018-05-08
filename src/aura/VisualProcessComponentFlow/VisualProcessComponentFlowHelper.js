@@ -1,5 +1,6 @@
 ({
 	addComponent : function(cmp) {
+		console.log('Adding component: ', cmp);
 		var appEvent = $A.get("e.c:VisualProcessEventAddComponent");
 
         appEvent.setParams({
@@ -8,7 +9,8 @@
             "type":cmp.type,
 			"id":cmp.id,
 			"parent":null,
-			"sfId":cmp.sfId
+			"sfId":cmp.sfId,
+			"position":cmp.position
         });
         
         appEvent.fire();
@@ -42,7 +44,7 @@
 		$A.util.addClass(failIcon,'hide-element');
 	},
 
-	showFailIcon : function(localId){
+	showFailIcon : function(localId, message){
 		//Show error icon
 		var failIcon = document.getElementById("failIcon"+localId);
 		$A.util.removeClass(failIcon,'hide-element');
@@ -52,5 +54,17 @@
 		var readyIcon = document.getElementById("readyIcon"+localId);
 		$A.util.removeClass(readyIcon,'show-inline-element');
 		$A.util.addClass(readyIcon,'hide-element');
+
+		//Error text
+		var failMessage = document.getElementById("failMessage"+localId);
+		failMessage.innerHTML = '<p>' + message + '</p>';
+		
+	},
+
+	getNewId : function(component){
+		var lastId = component.get("v.lastId");
+		component.set("v.lastId", lastId + 1);
+
+		return lastId + 1;
 	}
 })

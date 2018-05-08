@@ -24,7 +24,7 @@
                         <div class='slds-p-vertical_x-small slds-m-left_small slds-p-left_small vpc-accordion-item'>
                             {!i.label}
                             <div class="slds-float_right vpc-add-button">
-                                <lightning:buttonIcon value="{!i.name}" onclick="{!c.addingComponent}" class="slds-m-right--x-small" iconName="utility:add" size="x-small" alternativeText="add" />
+                                <lightning:buttonIcon value="{!i}" onclick="{!c.addingComponent}" class="slds-m-right--x-small" iconName="utility:add" size="x-small" alternativeText="add" />
                             </div>
                         </div>
                     </aura:set>

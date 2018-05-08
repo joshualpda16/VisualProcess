@@ -11,6 +11,7 @@
         var type = event.getParam("type");
         var parent = event.getParam("parent");
         var sfId = event.getParam("sfId");
+        var position = event.getParam("position");
         var action;
         
         var visualProcessId = component.get("v.VisualProcessId");
@@ -21,8 +22,9 @@
             action.setParams({
                 type : type,
                 name : name,
-                parent : parent,
                 label : label,
+                parent : parent,
+                position : position,
                 visualProcessId : visualProcessId
             });
             
@@ -35,6 +37,7 @@
                     var errors = response.getError();
                     if (errors) {
                         if (errors[0] && errors[0].message) {
+                            helper.notifyUpdate(localId, type, false, errors[0].message);
                             console.log("Error message: " + errors[0].message);
                         }
                     } else {
@@ -99,9 +102,18 @@
                 if (response.getState() == "SUCCESS") {
                     var result = response.getReturnValue();
                     
-                    helper.notifyUpdate(localId, type, result);
+                    helper.notifyUpdate(localId, type, result, null);
                 } else{
-                    helper.notifyUpdate(localId, type, false);
+                    var errors = response.getError();
+                    if (errors) {
+                        if (errors[0] && errors[0].message) {
+                            helper.notifyUpdate(localId, type, false, errors[0].message);
+                            console.log("Error message: " + errors[0].message);
+                        }
+                    } else {
+                        helper.notifyUpdate(localId, type, false, 'Unknow error');
+                        console.log("Unknown error");
+                    }
                 }
             });
         }

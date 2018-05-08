@@ -1,7 +1,10 @@
 ({
     doInit: function(component, event, helper) {
         var action = component.get("c.getFlow");
-        var actualSteps = [];
+        var actualSteps = [], okIds = [];
+        var isMoving = {
+            'status' : false
+        };
         var newId;
         
         action.setParams({
@@ -12,21 +15,23 @@
             if (response.getState() == "SUCCESS") {
                 var allValues = response.getReturnValue();
 
-                console.log(allValues);
-
                 if(allValues != null){
                     for (var i = 0; i < allValues.length; i++) {
-                        newId = i+1;
+                        newId = helper.getNewId(component);
                         allValues[i].id = newId;
                         actualSteps.push(allValues[i]);
-
-                        helper.updateStep(actualSteps[i]);
+                        
                         helper.addComponent(actualSteps[i]);
-                        helper.showReadyIcon(newId); 
+                        okIds.push(newId);
                     }
                     
                     component.set("v.actualSteps", actualSteps);
                 }
+
+                setTimeout(function(){
+                    for(i = 0; i < okIds.length; i++)
+                        helper.showReadyIcon(okIds[i]); 
+                }, 500);
             }
         });
 
@@ -67,7 +72,8 @@
     	var type = event.getParam("type");
         var localId = event.getParam("id");
         var success = event.getParam("success");
-        
+        var message = event.getParam("message");
+
         if(type == "step"){
             var actualSteps = component.get("v.actualSteps");
         
@@ -75,7 +81,7 @@
                 if(success){
                     helper.showReadyIcon(localId);
                 } else{
-                    helper.showFailIcon(localId);
+                    helper.showFailIcon(localId, message);
                 }
             }
         }
@@ -151,31 +157,81 @@
         component.set("v.isAdding", true);
 
         var type = event.getParam("type");
+        var typeLabel = event.getParam("label");
+        var newId = helper.getNewId(component);
 
-        component.set("v.newChild", type);
+        var newChild = {
+            'type' : type,
+            'typeLabel' : typeLabel,
+            'name' : "new_" + type + newId,
+            'label' : "New " + type + " " + newId,
+            'id' : newId
+        };
+
+        component.set("v.newChild", newChild);
     },
 
     addComponent : function(component, event, helper){
         component.set("v.isAdding", false);
 
-        var strStepId = event.getSource().get('v.value');
+        var objStep = event.getSource().get('v.value');
         var actualSteps = component.get("v.actualSteps");
         var newChild = component.get("v.newChild");
         var x;
+        
+        newChild.parent = objStep.sfId;
 
         for(x=0; x<actualSteps.length;x++)
-            if(actualSteps[x].id == strStepId){
-                actualSteps[x].childs.push({
-                    name : newChild,
-                    label : "New " + newChild,
-                    type : newChild
-                });
+            if(actualSteps[x].id == objStep.id){
+                actualSteps[x].childs.push(newChild);
                 break;
             }
         
         component.set("v.actualSteps", actualSteps);
-        //helper.updateStep(strStepId, actualSteps[x].sfId, actualSteps[x].name, actualSteps[x].childs, actualSteps[x].label, "step");
+        
         helper.updateStep(actualSteps[x]);
+        helper.addComponent(newChild);
+    },
+
+    moving : function(component, event, helper){
+        component.get("v.isMoving");
+
+        var cmp = event.getSource().get('v.value');
+
+        var objIsMoving = {
+            'status': true,
+            'cmp' : cmp
+        };
+
+        component.set("v.isMoving", objIsMoving);
+
+        var disableStep = document.getElementById("disableStep"+cmp.id);
+		$A.util.removeClass(disableStep,'hide-element');
+		$A.util.addClass(disableStep,'show-element');
+    },
+
+    moveElement : function(component, event, helper){
+        var cmp = event.getSource().get('v.value');
+
+        var cmpToMove = component.get("v.isMoving");
+        cmpToMove = cmpToMove.cmp;
+
+        var actualSteps = component.get("v.actualSteps");
+        var inserted = false;
+
+        for(x=0; x<actualSteps.length; x++){
+            if(!inserted && actualSteps[x].id == cmp.id){
+                actualSteps.splice(x, 0, cmpToMove);
+                inserted = true;
+            }
+
+            // if(actualSteps[x].id == cmpToMove){
+
+            // }
+
+            if(inserted) actualSteps[x].position++;
+
+        }
     },
     
     removeStep : function(component, event, helper){
@@ -208,17 +264,21 @@
     addStep : function(component, event, helper) {
         var actualSteps = component.get("v.actualSteps");
         var childs = [];
-        var newId = 1;
+        var newId = helper.getNewId(component);
+        
+        var source = event.getSource().get('v.value');
+        var position;
 
-        
-        if(actualSteps.length > 0) newId = actualSteps[actualSteps.length-1].id + 1;
-        
+        if(source === 'AddStepButton')
+            position = actualSteps.length + 1;
+
         actualSteps.push({
             "name":"Step "+newId,
             "label":"Step "+newId,
             "id" : newId,
             "childs" : childs,
             "type" : "step",
+            "position" : position,
             "sfId" : null
         });
         

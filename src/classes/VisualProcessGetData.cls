@@ -48,9 +48,11 @@ public class VisualProcessGetData {
             List<VisualProcessComponent__c> cmps = [SELECT Id, Name,
                                                         Label__c,
                                                         Parent__c,
-                                                        Type__r.Name
+                                                        Type__r.Name,
+                                                        Position__c
                                                     FROM VisualProcessComponent__c
-                                                    WHERE Visual_Process__c = :visualProcessId];
+                                                    WHERE Visual_Process__c = :visualProcessId
+                                                    ORDER By Position__c];
 
             if(cmps.size() == 0)
                 return null;
@@ -62,6 +64,7 @@ public class VisualProcessGetData {
                     c.put('name', cmp.Name);
                     c.put('label', cmp.Label__c);
                     c.put('type', 'step');
+                    c.put('position', cmp.Position__c);
                     c.put('childs', new List<Map<String, Object>>());
                     
                     retFlow.add(c);
