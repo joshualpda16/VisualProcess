@@ -1,0 +1,20 @@
+.THIS {
+    background: white;
+    height: 100%;
+}
+
+.THIS .slds-docked-form-footer{
+    z-index: 1;
+}
+
+.THIS .slds-path__nav{
+    margin-right: 0px;
+}
+
+.THIS .slds-docked-form-footer{
+    position: relative;
+}
+
+.THIS .vpc-body-step{
+    height: calc(100% - 34px - 48px);
+}

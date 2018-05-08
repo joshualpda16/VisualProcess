@@ -1,0 +1,26 @@
+.THIS .slds-accordion__list-item:hover{
+    background-color: rgb(245, 245, 245);
+    transition: background .2s;
+}
+
+.THIS .slds-accordion__list-item{
+    border-top: solid 1px rgb(217, 219, 221) !important;
+}
+
+.THIS .vpc-accordion-item{
+    border-radius: 10px;
+    cursor: default;
+}
+
+.THIS .vpc-accordion-item:hover{
+    background-color: rgb(255, 255, 255);
+    transition: background .2s;
+}
+
+.THIS .vpc-add-button{
+    display: none;
+}
+
+.THIS .vpc-accordion-item:hover .vpc-add-button{
+    display: block;
+}

@@ -1,0 +1,35 @@
+<aura:component controller="VisualProcessComponentSelectorController">
+    
+    <aura:attribute name="componentTypes" type="List"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:registerEvent name="HidePaneEvent" type="c:VisualProcessEventHidePane"/>
+    <aura:registerEvent name="AddingCmpEvent" type="c:VisualProcessEventAddingComponent"/> 
+    
+    
+    <div class="slds-clearfix slds-m-top--small slds-m-right--small slds-m-bottom--small">
+        <div class="slds-clearfix">
+            <div class="slds-float_right">
+                <lightning:buttonIcon class="slds-button_icon-border-filled" iconName="utility:left" onclick="{!c.hidePane}" variant="bare" alternativeText="Hide" />
+            </div>
+        </div>
+    </div>
+    
+    <lightning:accordion>
+        <aura:iteration items="{!v.componentTypes}" var="cmp">
+            <lightning:accordionSection label="{!cmp.category}" name="{!cmp.category}">
+                <aura:iteration items="{!cmp.items}" var="i">
+                    <aura:set attribute="body">
+                        <div class='slds-p-vertical_x-small slds-m-left_small slds-p-left_small vpc-accordion-item'>
+                            {!i.label}
+                            <div class="slds-float_right vpc-add-button">
+                                <lightning:buttonIcon value="{!i.name}" onclick="{!c.addingComponent}" class="slds-m-right--x-small" iconName="utility:add" size="x-small" alternativeText="add" />
+                            </div>
+                        </div>
+                    </aura:set>
+                </aura:iteration>
+            </lightning:accordionSection>
+        </aura:iteration>
+    </lightning:accordion>
+</aura:component>

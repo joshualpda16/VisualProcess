@@ -1,0 +1,32 @@
+<aura:component >
+    <aura:handler event="c:VisualProcessEventHidePane" action="{!c.hideEventHandler}"/>
+    
+    <div class="slds-scope vp-general-container">
+        <div class="slds-box slds-box_small slds-m-horizontal_small slds-m-top_small vp-general-debugbox">
+            <c:VisualProcessDebugBox ></c:VisualProcessDebugBox>
+        </div>
+        <div class="slds-grid slds-gutters slds-p-left_small vpc-col-container">
+            <div aura:id="ComponentSelector" class="slds-col vp-general-column slds-size_2-of-12 slds-m-vertical_small slds-m-left--small">
+                <div class="slds-box padding-none">
+                    <span class="content"><c:VisualProcessComponentSelector ></c:VisualProcessComponentSelector></span>
+                    <div aura:id="ComponentSelectorShow" class="hide-element slds-m-around--small">
+                        <lightning:buttonIcon onclick="{!c.showPanel}" class="slds-button_icon-border-filled" value="ComponentSelector" iconName="utility:right" variant="bare" alternativeText="Show" />
+                    </div>
+                </div>
+            </div>
+            <div aura:id="ComponentFlow" class="slds-col vp-general-column slds-size_3-of-12 slds-m-vertical_small slds-m-left--small">
+                <div class="slds-box padding-none">
+                    <span class="content"><c:VisualProcessComponentFlow ></c:VisualProcessComponentFlow></span>
+                    <div aura:id="ComponentFlowShow" class="hide-element slds-m-around--small">
+                        <lightning:buttonIcon onclick="{!c.showPanel}" class="slds-button_icon-border-filled" value="ComponentFlow" iconName="utility:right" variant="bare" alternativeText="Show" />
+                    </div>
+                </div>
+            </div>
+            <div aura:id="ComponentPreview" class="slds-col vp-general-column slds-m-vertical_small slds-m-right--large slds-m-left--small">
+                <div class="slds-box">
+                    <span class="content"><c:VisualProcessComponentPreview ></c:VisualProcessComponentPreview></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

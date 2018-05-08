@@ -1,0 +1,48 @@
+.THIS .vpc-shadow-card{
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+}
+
+.THIS .hide-element{
+    display: none;
+}
+
+.THIS .show-element{
+    display: block;
+}
+
+.THIS .show-inline-element{
+    display: inline;
+}
+
+.THIS.vpc-flow-steps{
+    height: calc(100% - 60px);
+    overflow-y: auto;
+}
+
+.THIS .vpc-normal-pointer{
+    cursor: default;
+}
+
+.THIS::-webkit-scrollbar {
+    width: 0.5em;
+    background: transparent;
+    position: fixed;
+}
+
+.THIS::-webkit-scrollbar-thumb {
+    background: #CCC;
+    position: absolute;
+}
+
+.THIS .vpc-uncolor-text{
+	color: #CCCCCC;
+}
+
+.THIS .vpc-shadow-card:hover .stepButtons{
+    display: block;
+}
+
+.THIS .vpc-padding-small{
+    padding: 10px;
+}

@@ -1,0 +1,72 @@
+body.THIS html.THIS{
+    height: 100%;
+}
+
+.THIS .slds-gutters .slds-col{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.THIS .vp-general-column .slds-box{
+    background: white;
+    height: 100%;
+}
+
+.THIS .vpc-col-container{
+    height: 90%;
+}
+
+.THIS.vp-general-container{
+    background: #EEEEEE;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.THIS .vp-general-debugbox{
+    background: white;
+}
+
+.THIS hr{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.THIS .padding-none {
+    padding: 0;
+}
+
+
+.THIS .short-element{
+    width: 58px;
+    transition: width .3s;
+}
+
+.THIS .short-element .content{
+    display: none;
+}
+
+.THIS .long-element{
+    width: inherit;
+    transition: width .2s;
+}
+
+.THIS .long-element .content{
+    display: auto;
+}
+
+.THIS .hide-element{
+    display: none;
+}
+
+.THIS .show-element{
+    display: block;
+}
+
+.THIS .slds-size_3-of-12{
+    transition: width .3s;
+}
+
+.THIS .slds-size_2-of-12{
+    transition: width .3s;
+}
