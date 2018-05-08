@@ -21,7 +21,8 @@
                         actualSteps.push(allValues[i]);
 
                         helper.updateStep(actualSteps[i]);
-                        helper.showReadyIcon(newId);
+                        helper.addComponent(actualSteps[i]);
+                        helper.showReadyIcon(newId); 
                     }
                     
                     component.set("v.actualSteps", actualSteps);
@@ -111,9 +112,11 @@
                     newName = actualSteps[x].name;
                     sfId = actualSteps[x].sfId;
                     childs = actualSteps[x].childs;
+
+                    break;
                 }
 
-            helper.updateStep(localId, sfId, newName, childs, "step");
+            helper.updateStep(actualSteps[x]);
 
             component.set("v.actualSteps", actualSteps);
             
@@ -215,7 +218,8 @@
             "label":"Step "+newId,
             "id" : newId,
             "childs" : childs,
-            "type" : "step"
+            "type" : "step",
+            "sfId" : null
         });
         
         component.set("v.actualSteps", actualSteps);

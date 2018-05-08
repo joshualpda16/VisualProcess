@@ -7,6 +7,7 @@
     <aura:handler event="c:VisualProcessEventRemoveComponent" action="{!c.removeComponentHandler}" />
     <aura:handler event="c:VisualProcessEventEditComponent" action="{!c.editComponentHandler}" />
     <aura:handler event="c:VisualProcessEventPreviewStep" action="{!c.previewStepHandler}" />
+    <aura:handler event="c:VisualProcessEventInitComponents" action="{!c.initComponentsHandler}" />
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
 

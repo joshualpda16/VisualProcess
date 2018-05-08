@@ -7,7 +7,8 @@
 			"label":cmp.label,
             "type":cmp.type,
 			"id":cmp.id,
-			"parent":null
+			"parent":null,
+			"sfId":cmp.sfId
         });
         
         appEvent.fire();

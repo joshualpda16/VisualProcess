@@ -10,14 +10,12 @@
         var localId = event.getParam("id");
         var type = event.getParam("type");
         var parent = event.getParam("parent");
-
-        console.log('addComponentHandler.localId ', localId);
-        
-        var visualProcessId = component.get("v.VisualProcessId");
-
+        var sfId = event.getParam("sfId");
         var action;
         
-        if(type != ""){
+        var visualProcessId = component.get("v.VisualProcessId");
+        
+        if(type != "" && sfId == null){
             action = component.get("c.addNewComponent");
 
             action.setParams({
