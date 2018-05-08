@@ -45,9 +45,9 @@
             <aura:html tag="div" data-id="{!'vpc-card-flow-' + s.id}" class="slds-m-horizontal_small vpc-shadow-card" value="{!s.id}">
 
                 <div class="contMoveStep" style="height: 12px">
-                    <aura:if isTrue="{!and(v.isMoving.status, v.isMoving.type == 'step')}">
+                    <aura:if isTrue="{!and(v.isMoving.status, v.isMoving.cmp.type == 'step')}">
                         <div class="moveStepBtn">
-                            <lightning:buttonIcon value="{!s}" variant="bare" onclick="{!c.moveStep}" class="slds-align_absolute-center" iconName="utility:level_down"
+                            <lightning:buttonIcon value="{!s}" variant="bare" onclick="{!c.endMoving}" class="slds-align_absolute-center" iconName="utility:contract_alt"
                             size="small" alternativeText="add" />
                         </div>
                     </aura:if>
@@ -69,7 +69,7 @@
                                     />
                                     <lightning:buttonIcon value="{!s.id}" iconName="utility:preview" onclick="{!c.previewStep}" variant="bare" alternativeText="Preview Step"
                                     />
-                                    <lightning:buttonIcon value="{!s}" iconName="utility:change_record_type" onclick="{!c.move}" variant="bare" alternativeText="Move Step"
+                                    <lightning:buttonIcon value="{!s}" iconName="utility:change_record_type" onclick="{!c.startMoving}" variant="bare" alternativeText="Move Step"
                                     />
                                 </div>
                             </aura:if>
@@ -85,7 +85,7 @@
                                 <div class="show-element vpc-normal-pointer" id="{!'labelStepName' + s.id}">
                                     <!-- Step Name -->
                                     {!s.name}
-                                    <span style="color: #CCCCCC"> - Step ({!s.id})</span>
+                                    <span style="color: #CCCCCC"> - Step (id: {!s.id} - pos: {!s.position})</span>
 
                                     <!-- Status Icon -->
                                     <span class="hide-element slds-m-left--x-small" id="{!'readyIcon' + s.id}">

@@ -193,10 +193,13 @@
         helper.addComponent(newChild);
     },
 
-    moving : function(component, event, helper){
+    startMoving : function(component, event, helper){
         component.get("v.isMoving");
 
         var cmp = event.getSource().get('v.value');
+
+        console.log(cmp);
+        console.log(cmp.type);
 
         var objIsMoving = {
             'status': true,
@@ -210,7 +213,7 @@
 		$A.util.addClass(disableStep,'show-element');
     },
 
-    moveElement : function(component, event, helper){
+    endMoving : function(component, event, helper){
         var cmp = event.getSource().get('v.value');
 
         var cmpToMove = component.get("v.isMoving");
@@ -218,20 +221,33 @@
 
         var actualSteps = component.get("v.actualSteps");
         var inserted = false;
+        var deleted = false;
+        var x;
 
         for(x=0; x<actualSteps.length; x++){
-            if(!inserted && actualSteps[x].id == cmp.id){
+            if(actualSteps[x].id == cmp.id && !inserted){
                 actualSteps.splice(x, 0, cmpToMove);
                 inserted = true;
             }
 
-            // if(actualSteps[x].id == cmpToMove){
-
-            // }
-
-            if(inserted) actualSteps[x].position++;
-
+            if(!deleted && actualSteps[x].id == cmpToMove.id){
+                actualSteps.splice(x, 1);
+                deleted = true;
+            }
         }
+
+        component.set("v.actualSteps", actualSteps);
+
+        var disableStep = document.getElementById("disableStep"+cmpToMove.id);
+		$A.util.removeClass(disableStep,'show-element');
+		$A.util.addClass(disableStep,'hide-element');
+
+        var objIsMoving = {
+            'status': false,
+            'cmp' : null
+        };
+
+        component.set("v.isMoving", objIsMoving);
     },
     
     removeStep : function(component, event, helper){
