@@ -1,6 +1,6 @@
 <aura:component controller="VisualProcessGetData">
 
-    <aura:attribute name="actualSteps" type="List" />
+    <aura:attribute name="flowComponents" type="List" />
     <aura:attribute name="isAdding" type="Boolean" default="false" />
     <aura:attribute name="isMoving" type="Object" />
     <aura:attribute name="newChild" type="Object" />
@@ -39,9 +39,9 @@
         </div>
     </div>
 
-    <!-- Step container -->
-    <div class="slds-grid slds-grid_vertical vpc-flow-steps" aura:id="stepsContainer">
-        <aura:iteration items="{!v.actualSteps}" var="s">
+    <!-- Flow Components container -->
+    <div class="slds-grid slds-grid_vertical vpc-flow-steps">
+        <aura:iteration items="{!v.flowComponents}" var="s">
             <aura:html tag="div" data-id="{!'vpc-card-flow-' + s.id}" class="slds-m-horizontal_small vpc-shadow-card" value="{!s.id}">
 
                 <div class="contMoveStep" style="height: 12px">
@@ -140,7 +140,7 @@
                 </div>
             </aura:html>
         </aura:iteration>
-        <aura:if isTrue="{!v.actualSteps.length == 0}">
+        <aura:if isTrue="{!v.flowComponents.length == 0}">
             <div class="slds-m-horizontal_small slds-align-middle vpc-normal-pointer vpc-uncolor-text">
                 <span>Empty Flow</span>
             </div>

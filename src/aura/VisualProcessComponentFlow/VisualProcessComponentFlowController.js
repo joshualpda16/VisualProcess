@@ -1,7 +1,7 @@
 ({
     doInit: function(component, event, helper) {
         var action = component.get("c.getFlow");
-        var actualSteps = [], okIds = [];
+        var flowComponents = [], okIds = [];
         var isMoving = {
             'status' : false
         };
@@ -19,13 +19,13 @@
                     for (var i = 0; i < allValues.length; i++) {
                         newId = helper.getNewId(component);
                         allValues[i].id = newId;
-                        actualSteps.push(allValues[i]);
+                        flowComponents.push(allValues[i]);
                         
-                        helper.addComponent(actualSteps[i]);
+                        helper.addComponent(flowComponents[i]);
                         okIds.push(newId);
                     }
                     
-                    component.set("v.actualSteps", actualSteps);
+                    component.set("v.flowComponents", flowComponents);
                 }
 
                 setTimeout(function(){
@@ -75,9 +75,9 @@
         var message = event.getParam("message");
 
         if(type == "step"){
-            var actualSteps = component.get("v.actualSteps");
+            var flowComponents = component.get("v.flowComponents");
         
-            if(actualSteps.length > 0){
+            if(flowComponents.length > 0){
                 if(success){
                     helper.showReadyIcon(localId);
                 } else{
@@ -93,14 +93,14 @@
         var sfId = event.getParam("sfId");
         var x;
         
-        var actualSteps = component.get("v.actualSteps");
+        var flowComponents = component.get("v.flowComponents");
         
-        if(actualSteps.length > 0){
-            for(x=0; x<actualSteps.length; x++)
-                if(actualSteps[x].id == localId)
-                    actualSteps[x].sfId = sfId;
+        if(flowComponents.length > 0){
+            for(x=0; x<flowComponents.length; x++)
+                if(flowComponents[x].id == localId)
+                    flowComponents[x].sfId = sfId;
 
-            component.set("v.actualSteps", actualSteps);
+            component.set("v.flowComponents", flowComponents);
             
             helper.showReadyIcon(localId);
         }
@@ -109,22 +109,22 @@
     saveStepName : function(component, event, helper){
         if (event.keyCode === 13) { //if press Enter key
             var localId = event.currentTarget.dataset.id;
-            var actualSteps = component.get("v.actualSteps");
+            var flowComponents = component.get("v.flowComponents");
             var x, sfId, childs = [];
             var newName = 'error';
             
-            for(x=0; x<actualSteps.length;x++)
-                if(actualSteps[x].id == localId){
-                    newName = actualSteps[x].name;
-                    sfId = actualSteps[x].sfId;
-                    childs = actualSteps[x].childs;
+            for(x=0; x<flowComponents.length;x++)
+                if(flowComponents[x].id == localId){
+                    newName = flowComponents[x].name;
+                    sfId = flowComponents[x].sfId;
+                    childs = flowComponents[x].childs;
 
                     break;
                 }
 
-            helper.updateStep(actualSteps[x]);
+            helper.updateStep(flowComponents[x]);
 
-            component.set("v.actualSteps", actualSteps);
+            component.set("v.flowComponents", flowComponents);
             
             //Hide edit
             var editStepName = document.getElementById("editStepName"+localId);
@@ -175,21 +175,21 @@
         component.set("v.isAdding", false);
 
         var objStep = event.getSource().get('v.value');
-        var actualSteps = component.get("v.actualSteps");
+        var flowComponents = component.get("v.flowComponents");
         var newChild = component.get("v.newChild");
         var x;
         
         newChild.parent = objStep.sfId;
 
-        for(x=0; x<actualSteps.length;x++)
-            if(actualSteps[x].id == objStep.id){
-                actualSteps[x].childs.push(newChild);
+        for(x=0; x<flowComponents.length;x++)
+            if(flowComponents[x].id == objStep.id){
+                flowComponents[x].childs.push(newChild);
                 break;
             }
         
-        component.set("v.actualSteps", actualSteps);
+        component.set("v.flowComponents", flowComponents);
         
-        helper.updateStep(actualSteps[x]);
+        helper.updateStep(flowComponents[x]);
         helper.addComponent(newChild);
     },
 
@@ -219,24 +219,35 @@
         var cmpToMove = component.get("v.isMoving");
         cmpToMove = cmpToMove.cmp;
 
-        var actualSteps = component.get("v.actualSteps");
-        var inserted = false;
-        var deleted = false;
-        var x;
+        var flowComponents = component.get("v.flowComponents");
 
-        for(x=0; x<actualSteps.length; x++){
-            if(actualSteps[x].id == cmp.id && !inserted){
-                actualSteps.splice(x, 0, cmpToMove);
-                inserted = true;
+        if(cmp.position !== cmpToMove.position && cmp.position !== cmpToMove.position+1){
+            var inserted = false;
+            var deleted = false;
+            var x;
+            var newPosition = 1;
+            var newSteps = [];
+
+            for(x=0; x<flowComponents.length; x++){
+                if(flowComponents[x].id == cmp.id){
+                    cmpToMove.position = newPosition++;
+                    newSteps.push(cmpToMove);
+                    flowComponents[x].position = newPosition++;
+                    newSteps.push(flowComponents[x])
+                } else if(flowComponents[x].id == cmpToMove.id){
+                    //do not push
+                } else{
+                    flowComponents[x].position = newPosition++; 
+                    newSteps.push(flowComponents[x]);
+                }
             }
 
-            if(!deleted && actualSteps[x].id == cmpToMove.id){
-                actualSteps.splice(x, 1);
-                deleted = true;
-            }
+            var updatedSteps = [];
+
+            flowComponents = newSteps;
         }
 
-        component.set("v.actualSteps", actualSteps);
+        component.set("v.flowComponents", flowComponents);
 
         var disableStep = document.getElementById("disableStep"+cmpToMove.id);
 		$A.util.removeClass(disableStep,'show-element');
@@ -252,17 +263,17 @@
     
     removeStep : function(component, event, helper){
         var strStepId = event.getSource().get('v.value');
-        var actualSteps = component.get("v.actualSteps");
+        var flowComponents = component.get("v.flowComponents");
         var x, sfId;
         
-        if(actualSteps.length > 0){   
-            for(x=0; x<actualSteps.length; x++)
-                if(actualSteps[x].id == strStepId){
-                    sfId = actualSteps[x].sfId;
-                    actualSteps.splice(x, 1);
+        if(flowComponents.length > 0){   
+            for(x=0; x<flowComponents.length; x++)
+                if(flowComponents[x].id == strStepId){
+                    sfId = flowComponents[x].sfId;
+                    flowComponents.splice(x, 1);
                 }
             
-            component.set("v.actualSteps", actualSteps);
+            component.set("v.flowComponents", flowComponents);
         }
         
         //Fire event        
@@ -278,7 +289,7 @@
     },
     
     addStep : function(component, event, helper) {
-        var actualSteps = component.get("v.actualSteps");
+        var flowComponents = component.get("v.flowComponents");
         var childs = [];
         var newId = helper.getNewId(component);
         
@@ -286,9 +297,9 @@
         var position;
 
         if(source === 'AddStepButton')
-            position = actualSteps.length + 1;
+            position = flowComponents.length + 1;
 
-        actualSteps.push({
+        flowComponents.push({
             "name":"Step "+newId,
             "label":"Step "+newId,
             "id" : newId,
@@ -298,9 +309,9 @@
             "sfId" : null
         });
         
-        component.set("v.actualSteps", actualSteps);
+        component.set("v.flowComponents", flowComponents);
         
-        helper.addComponent(actualSteps[actualSteps.length-1]);
+        helper.addComponent(flowComponents[flowComponents.length-1]);
         
         /*$A.createComponents([
             ["aura:HTML",{ 
