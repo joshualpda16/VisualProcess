@@ -87,7 +87,7 @@
         }
     },
     
-    updateSfIdOnLocal : function(component, event, helper){
+    updateSfIdHandler : function(component, event, helper){
         var localId = event.getParam("id");
         var type = event.getParam("type");
         var sfId = event.getParam("sfId");
@@ -306,7 +306,8 @@
             "childs" : childs,
             "type" : "step",
             "position" : position,
-            "sfId" : null
+            "sfId" : null,
+            "isContainer" : true
         });
         
         component.set("v.flowComponents", flowComponents);

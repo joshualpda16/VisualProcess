@@ -12,6 +12,7 @@
         var parent = event.getParam("parent");
         var sfId = event.getParam("sfId");
         var position = event.getParam("position");
+        var isContainer = event.getParam("isContainer");
         var action;
         
         var visualProcessId = component.get("v.VisualProcessId");
@@ -25,7 +26,8 @@
                 label : label,
                 parent : parent,
                 position : position,
-                visualProcessId : visualProcessId
+                visualProcessId : visualProcessId,
+                isContainer : isContainer
             });
             
             action.setCallback(this, function(response) {

@@ -8,7 +8,7 @@
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
 
-    <aura:handler event="c:VisualProcessEventSfIdLocalUpdate" action="{!c.updateSfIdOnLocal}" />
+    <aura:handler event="c:VisualProcessEventSfIdLocalUpdate" action="{!c.updateSfIdHandler}" />
     <aura:handler event="c:VisualProcessEventNotifyUpdate" action="{!c.notifyUpdateHandler}" />
     <aura:handler event="c:VisualProcessEventAddingComponent" action="{!c.addingComponentHandler}" />
 
@@ -44,6 +44,7 @@
         <aura:iteration items="{!v.flowComponents}" var="s">
             <aura:html tag="div" data-id="{!'vpc-card-flow-' + s.id}" class="slds-m-horizontal_small vpc-shadow-card" value="{!s.id}">
 
+                <!-- Move button on first position -->
                 <div class="contMoveStep" style="height: 12px">
                     <aura:if isTrue="{!and(v.isMoving.status, v.isMoving.cmp.type == 'step')}">
                         <div class="moveStepBtn">
@@ -53,10 +54,11 @@
                     </aura:if>
                 </div>
 
-
                 <div class="slds-box vpc-padding-small vpc-rel">
+                    <!-- Disable Step for Moving -->
                     <div class="disableStep hide-element" id="{!'disableStep' + s.id}"></div>
 
+                    <!-- Step Header -->
                     <div class="slds-clearfix">
                         <div class="slds-clearfix">
 
@@ -73,8 +75,9 @@
                                     />
                                 </div>
                             </aura:if>
-                            <div class="slds-float_left">
 
+                            <!-- Step Title and Status Icon -->
+                            <div class="slds-float_left">
                                 <!-- Step edit name -->
                                 <div class="hide-element" id="{!'editStepName' + s.id}" data-id="{!s.id}" onkeyup="{!c.saveStepName}">
                                     <ui:inputText value="{!s.name}" />
@@ -104,6 +107,7 @@
                             </div>
                         </div>
                     </div>
+
                     <hr/>
 
                     <!-- Empty Label -->
@@ -113,22 +117,24 @@
                         </div>
                     </aura:if>
 
-                    <!-- Components -->
-                    <aura:iteration items="{!s.childs}" var="child" indexVar="indexChild">
-                        <div class="contAddCmpButton" style="height: 10px">
-                            <aura:if isTrue="{!v.isAdding}">
-                                <div class="addCmpButton">
-                                    <lightning:buttonIcon value="{!s}" variant="bare" onclick="{!c.addComponent}" class="slds-align_absolute-center" iconName="utility:add"
-                                        size="small" alternativeText="add" />
-                                </div>
-                            </aura:if>
-                        </div>
+                    <!-- Child Components -->
+                    <aura:if isTrue="{!and(s.isContainer == true, s.childs.length > 0)}">
+                        <aura:iteration items="{!s.childs}" var="child" indexVar="indexChild">
+                            <div class="contAddCmpButton" style="height: 10px">
+                                <aura:if isTrue="{!v.isAdding}">
+                                    <div class="addCmpButton">
+                                        <lightning:buttonIcon value="{!s}" variant="bare" onclick="{!c.addComponent}" class="slds-align_absolute-center" iconName="utility:add"
+                                            size="small" alternativeText="add" />
+                                    </div>
+                                </aura:if>
+                            </div>
 
-                        <div class="slds-box vpc-padding-small vpc-normal-pointer">
-                            {!child.name}
-                            <span style="color: #CCCCCC"> - {!child.typeLabel} {!child.id}</span>
-                        </div>
-                    </aura:iteration>
+                            <div class="slds-box vpc-padding-small vpc-normal-pointer">
+                                {!child.name}
+                                <span style="color: #CCCCCC"> - {!child.typeLabel} {!child.id}</span>
+                            </div>
+                        </aura:iteration>
+                    </aura:if>
 
                     <!-- Bottom add button -->
                     <aura:if isTrue="{!v.isAdding}">

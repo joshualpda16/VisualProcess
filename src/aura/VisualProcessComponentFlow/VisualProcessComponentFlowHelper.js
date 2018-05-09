@@ -10,6 +10,7 @@
 			"id":cmp.id,
 			"parent":null,
 			"sfId":cmp.sfId,
+			"isContainer":cmp.isContainer,
 			"position":cmp.position
         });
         

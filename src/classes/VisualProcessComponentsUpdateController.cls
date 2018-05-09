@@ -1,7 +1,7 @@
 public class VisualProcessComponentsUpdateController{
     
     @AuraEnabled
-    public static String addNewComponent(String type, String name, String label, String parent, Decimal position, String visualProcessId){
+    public static String addNewComponent(String type, String name, String label, String parent, Decimal position, String visualProcessId, Boolean isContainer){
         try{
             
             VisualProcessComponentType__c cmpType = [SELECT Id FROM VisualProcessComponentType__c WHERE Name = :type];
@@ -12,7 +12,8 @@ public class VisualProcessComponentsUpdateController{
                 Visual_Process__c = visualProcessId,
                 Type__c = cmpType.Id,
                 Parent__c = parent,
-                Position__c = position 
+                Position__c = position,
+                IsContainer__c = isContainer
             );
             
             insert cmp;

@@ -49,7 +49,8 @@ public class VisualProcessGetData {
                                                         Label__c,
                                                         Parent__c,
                                                         Type__r.Name,
-                                                        Position__c
+                                                        Position__c,
+                                                        IsContainer__c
                                                     FROM VisualProcessComponent__c
                                                     WHERE Visual_Process__c = :visualProcessId
                                                     ORDER By Position__c];
@@ -66,6 +67,7 @@ public class VisualProcessGetData {
                     c.put('type', 'step');
                     c.put('position', cmp.Position__c);
                     c.put('childs', new List<Map<String, Object>>());
+                    c.put('isContainer', cmp.IsContainer__c);
                     
                     retFlow.add(c);
                 }
