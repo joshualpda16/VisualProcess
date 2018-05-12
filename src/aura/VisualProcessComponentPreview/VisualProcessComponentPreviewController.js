@@ -3,6 +3,32 @@
         var steps = [];
         component.set("v.steps", steps);
     },
+
+    editComponentsPositionHandler : function(component, event, helper) {
+        var lstComponents = event.getParam("lstComponents");
+        var steps = component.get("v.steps");
+        var x,y;
+
+        var newSteps = [];
+
+        //Set new Positions
+        for(x=0; x<lstComponents.length;x++)
+            for(y=0; y<steps.length; y++)
+                if(lstComponents[x].id === steps[y].id)
+                    steps[y].position = lstComponents[x].position;
+
+        //Sort Steps
+        for(x=1; x<=steps.length;x++)
+            for(y=0; y<steps.length;y++)
+                if(steps[y].position === x)
+                    newSteps.push(steps[y]);
+        
+        var activeStep = component.get("v.activeStep");
+        helper.setActiveStep(component, newSteps, activeStep);
+        
+        //Set new array
+        component.set("v.steps",newSteps);
+    },
     
     addComponentHandler : function(component, event, helper) {
         var type = event.getParam("type");
@@ -12,11 +38,13 @@
         if(type == 'step'){
             var name = event.getParam("name");
             var id = event.getParam("id");
+            var position = event.getParam("position");
             //var childs = event.getParam("childs");
 
             steps.push({
                 "name":name,
-                "id":id
+                "id":id,
+                "position":position
             });
             
             component.set("v.steps", steps);
@@ -25,27 +53,9 @@
 
     previewStepHandler : function(component, event, helper){
         var localId = event.getParam("id");
-        var childs = event.getParam("childs");
-
         var steps = component.get("v.steps");
-        var x;
 
-        var active = true;
-        var childs = [];
-
-        for(x=0; x<steps.length; x++){
-            
-            if(steps[x].id == localId){
-                active = false;
-                childs = steps[x].childs;
-            }
-
-            steps[x].current = (steps[x].id == localId);
-            steps[x].isActive = active;
-        }
-
-        component.set("v.childs", childs);
-        component.set("v.steps", steps);
+        helper.setActiveStep(component, steps, localId);
     },
     
     removeComponentHandler : function(component, event, helper) {

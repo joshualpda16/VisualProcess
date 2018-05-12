@@ -17,6 +17,8 @@
     <aura:registerEvent name="EditComponentEvent" type="c:VisualProcessEventEditComponent" />
     <aura:registerEvent name="HidePaneEvent" type="c:VisualProcessEventHidePane" />
     <aura:registerEvent name="PreviewStepEvent" type="c:VisualProcessEventPreviewStep" />
+    <aura:registerEvent name="UpdateComponentsPositionEvent" type="c:VisualProcessEventEditComponentsPosition" />
+    
 
     <!-- Flow general actions -->
     <div class="slds-clearfix slds-m-around_small">
@@ -88,7 +90,7 @@
                                 <div class="show-element vpc-normal-pointer" id="{!'labelStepName' + s.id}">
                                     <!-- Step Name -->
                                     {!s.name}
-                                    <span style="color: #CCCCCC"> - Step (id: {!s.id} - pos: {!s.position})</span>
+                                    <span style="color: #CCCCCC"> - Step</span>
 
                                     <!-- Status Icon -->
                                     <span class="hide-element slds-m-left--x-small" id="{!'readyIcon' + s.id}">
@@ -131,7 +133,7 @@
 
                             <div class="slds-box vpc-padding-small vpc-normal-pointer">
                                 {!child.name}
-                                <span style="color: #CCCCCC"> - {!child.typeLabel} {!child.id}</span>
+                                <span style="color: #CCCCCC"> - {!child.typeLabel}</span>
                             </div>
                         </aura:iteration>
                     </aura:if>

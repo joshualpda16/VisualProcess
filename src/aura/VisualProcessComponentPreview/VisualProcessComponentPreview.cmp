@@ -2,12 +2,14 @@
 
     <aura:attribute name="steps" type="List" access="global" />
     <aura:attribute name="childs" type="List" access="global" />
+    <aura:attribute name="activeStep" type="Integer" access="global" />
 
     <aura:handler event="c:VisualProcessEventAddComponent" action="{!c.addComponentHandler}" />
     <aura:handler event="c:VisualProcessEventRemoveComponent" action="{!c.removeComponentHandler}" />
     <aura:handler event="c:VisualProcessEventEditComponent" action="{!c.editComponentHandler}" />
     <aura:handler event="c:VisualProcessEventPreviewStep" action="{!c.previewStepHandler}" />
     <aura:handler event="c:VisualProcessEventInitComponents" action="{!c.initComponentsHandler}" />
+    <aura:handler event="c:VisualProcessEventEditComponentsPosition" action="{!c.editComponentsPositionHandler}"/>
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
 
@@ -40,7 +42,7 @@
         <div class="vpc-body-step">
             <div class="slds-grid slds-wrap">
                 <aura:iteration items="{!v.childs}" var="child">
-                    <div class="slds-size_3-of-12 slds-p-around--x-small">
+                    <div class="slds-size_4-of-12 slds-p-around--x-small">
                         <lightning:input type="{!child.type}" label="{!child.label}" name="{!child.name}" />
                     </div>
                 </aura:iteration>

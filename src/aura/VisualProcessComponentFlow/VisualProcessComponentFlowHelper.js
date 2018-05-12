@@ -33,6 +33,16 @@
 		appEvent.fire();
 	},
 
+	updatePositions : function(updatedCmps){
+		var appEvent = $A.get("e.c:VisualProcessEventEditComponentsPosition"); 
+		
+		appEvent.setParams({
+			"lstComponents":updatedCmps
+		});
+		
+		appEvent.fire();
+	},
+
 	showReadyIcon : function(localId){
 		//Show ready icon
 		var readyIcon = document.getElementById("readyIcon"+localId);

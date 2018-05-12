@@ -69,7 +69,7 @@
     },
     
     notifyUpdateHandler : function(component, event, helper){
-    	var type = event.getParam("type");
+        var type = event.getParam("type");
         var localId = event.getParam("id");
         var success = event.getParam("success");
         var message = event.getParam("message");
@@ -198,9 +198,6 @@
 
         var cmp = event.getSource().get('v.value');
 
-        console.log(cmp);
-        console.log(cmp.type);
-
         var objIsMoving = {
             'status': true,
             'cmp' : cmp
@@ -226,25 +223,48 @@
             var deleted = false;
             var x;
             var newPosition = 1;
-            var newSteps = [];
+            var newComponents = [];
+
+            // for(x=0; x<flowComponents.length; x++){
+            //     if(flowComponents[x].id == cmp.id){
+            //         cmpToMove.position = newPosition++;
+            //         newComponents.push(cmpToMove);
+            //         flowComponents[x].position = newPosition++;
+            //         newComponents.push(flowComponents[x])
+            //     } else if(flowComponents[x].id == cmpToMove.id){
+            //         //do not push
+            //     } else{
+            //         flowComponents[x].position = newPosition++; 
+            //         newComponents.push(flowComponents[x]);
+            //     }
+            // }
 
             for(x=0; x<flowComponents.length; x++){
                 if(flowComponents[x].id == cmp.id){
-                    cmpToMove.position = newPosition++;
-                    newSteps.push(cmpToMove);
-                    flowComponents[x].position = newPosition++;
-                    newSteps.push(flowComponents[x])
+                    newComponents.push(JSON.parse(JSON.stringify(cmpToMove)));
+                    newComponents[newComponents.length-1].position = newPosition++;
+                    newComponents.push(JSON.parse(JSON.stringify(flowComponents[x])));
+                    newComponents[newComponents.length-1].position = newPosition++;
                 } else if(flowComponents[x].id == cmpToMove.id){
                     //do not push
                 } else{
-                    flowComponents[x].position = newPosition++; 
-                    newSteps.push(flowComponents[x]);
+                    newComponents.push(JSON.parse(JSON.stringify(flowComponents[x])));
+                    newComponents[newComponents.length-1].position = newPosition++; 
                 }
             }
 
-            var updatedSteps = [];
+            var updatedCmps = [];
+            var y, z;
 
-            flowComponents = newSteps;
+            for(y=0;y<flowComponents.length;y++)
+                for(z=0;z<newComponents.length;z++)
+                    if(flowComponents[y].id === newComponents[z].id 
+                        && flowComponents[y].position != newComponents[z].position)
+                        updatedCmps.push(newComponents[z]);
+
+            helper.updatePositions(updatedCmps);
+
+            flowComponents = newComponents;
         }
 
         component.set("v.flowComponents", flowComponents);

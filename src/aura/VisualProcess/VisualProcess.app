@@ -6,6 +6,7 @@
     <aura:handler event="c:VisualProcessEventAddComponent" action="{!c.addComponentHandler}"/>
     <aura:handler event="c:VisualProcessEventRemoveComponent" action="{!c.removeComponentHandler}"/>
     <aura:handler event="c:VisualProcessEventEditComponent" action="{!c.editComponentHandler}"/>
+    <aura:handler event="c:VisualProcessEventEditComponentsPosition" action="{!c.editComponentsPositionHandler}"/>
     
     <aura:registerEvent name="SfIdLocalUpdate" type="c:VisualProcessEventSfIdLocalUpdate"/>
     <aura:registerEvent name="NotifyEvent" type="c:VisualProcessEventNotifyUpdate"/>
