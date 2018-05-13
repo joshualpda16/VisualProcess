@@ -1,0 +1,11 @@
+.THIS .slds-docked-form-footer{
+    position: relative;
+    margin: auto;
+    width: calc(100% + 64px);
+    right: -32px;
+    left: -32px;
+}
+
+.THIS .vpc-body-step{
+    height: calc(100% - 34px - 48px);
+}
