@@ -25,7 +25,6 @@
                         okIds.push(newId);
                     }
                     
-                    //helper.updateStep(flowComponents[x]);
                     component.set("v.flowComponents", flowComponents);
                 }
 
@@ -33,6 +32,13 @@
                     for(i = 0; i < okIds.length; i++)
                         helper.showReadyIcon(okIds[i]); 
                 }, 500);
+            } else{
+                var errors = response.getError();
+                if (errors)
+                    if (errors[0] && errors[0].message)
+                        console.log("Error message: " + errors[0].message);
+                else
+                    console.log("Unknown error");
             }
         });
 

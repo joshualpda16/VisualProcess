@@ -6,11 +6,7 @@
     
     editComponentsPositionHandler : function(component, event, helper) {
         var lstComponents = event.getParam("lstComponents");
-
-        console.log('Editing components: ', lstComponents);
-
         var action = component.get("c.updatePositions");
-
         var lstCmps = {'lst' : lstComponents};
 
         action.setParams({
