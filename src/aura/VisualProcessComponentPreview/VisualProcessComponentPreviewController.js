@@ -39,16 +39,21 @@
             var name = event.getParam("name");
             var id = event.getParam("id");
             var position = event.getParam("position");
-            //var childs = event.getParam("childs");
+            var childs = event.getParam("childs");
+
+            console.log('received childs', childs);
 
             steps.push({
                 "name":name,
                 "id":id,
-                "position":position
+                "position":position,
+                "childs":childs
             });
             
             component.set("v.steps", steps);
         }
+
+        //console.log('Preview',steps);
     },
 
     previewStepHandler : function(component, event, helper){

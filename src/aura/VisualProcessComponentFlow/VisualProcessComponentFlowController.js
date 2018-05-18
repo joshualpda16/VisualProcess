@@ -25,6 +25,7 @@
                         okIds.push(newId);
                     }
                     
+                    //helper.updateStep(flowComponents[x]);
                     component.set("v.flowComponents", flowComponents);
                 }
 
@@ -178,11 +179,12 @@
         var flowComponents = component.get("v.flowComponents");
         var newChild = component.get("v.newChild");
         var x;
-        
-        newChild.parent = objStep.sfId;
 
         for(x=0; x<flowComponents.length;x++)
             if(flowComponents[x].id == objStep.id){
+                newChild.position = flowComponents[x].childs.length+1;
+                newChild.parent = objStep.sfId;
+                newChild.isContainer = false;
                 flowComponents[x].childs.push(newChild);
                 break;
             }

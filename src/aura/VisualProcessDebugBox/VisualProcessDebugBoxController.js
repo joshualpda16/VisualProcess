@@ -1,9 +1,25 @@
 ({
-	eventAddStep : function(component, event, helper) {
+	eventAddComponent : function(component, event, helper) {
         var name = event.getParam("name");
         var type = event.getParam("type");
+        var label = event.getParam("label");
+        var id = event.getParam("id");
+        var parent = event.getParam("parent");
+        var sfId = event.getParam("sfId");
+        var isContainer = event.getParam("isContainer");
+        var position = event.getParam("position");
+
+        var debugText = "Component added: ";
+        debugText += 'name: ' + name + ' | ';
+        debugText += 'type: ' + type + ' | ';
+        debugText += 'label: ' + label + ' | ';
+        debugText += 'id: ' + id + ' | ';
+        debugText += 'parent: ' + parent + ' | ';
+        debugText += 'sfId: ' + sfId + ' | ';
+        debugText += 'position: ' + position + ' | ';
+        debugText += 'isContainer: ' + isContainer;
         
-        component.set("v.debugText", "Component added: "+type+" ("+name+")");
+        component.set("v.debugText", debugText);
 	},
     
     eventRemoveStep : function(component, event, helper) {
