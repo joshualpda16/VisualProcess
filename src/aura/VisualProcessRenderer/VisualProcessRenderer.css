@@ -9,3 +9,16 @@
 .THIS .vpc-body-step{
     height: calc(100% - 34px - 48px);
 }
+
+.THIS.vpc-preview-container{
+    width: 100%;
+    overflow-x: hidden;
+    margin-left: -20px;
+    position: absolute;
+    height: calc(100% - 10px);
+    padding-top: 15px;
+}
+
+.THIS .slds-path{
+    margin-top: 0px;
+}
