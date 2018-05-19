@@ -5,6 +5,7 @@
     <aura:attribute name="flowComponents" type="List" />
     <aura:attribute name="recordId" type="String" />
     <aura:attribute name="childs" type="List" default="[]"/>
+    <aura:attribute name="buttons" type="Object" access="global" />
 
     <div class="vpc-preview-container">
         <div class="slds-path">
@@ -42,9 +43,14 @@
         </div>
         
         <div class="slds-docked-form-footer">
-            <button type="button" class="slds-button slds-button_neutral">Previous</button>
-            <button type="button" class="slds-button slds-button_brand">Next</button>
+            <aura:if isTrue="{!v.buttons.previous.show}">
+                <button type="button" class="slds-button slds-button_neutral" onclick="{!c.doPrev}">{!v.buttons.previous.name}</button>
+            </aura:if>
+
+            <aura:if isTrue="{!v.buttons.next.show}">
+                <button type="button" class="slds-button slds-button_brand" onclick="{!c.doNext}">{!v.buttons.next.name}</button>
+            </aura:if>
         </div>
-    </div>
+    </div> 
 
 </aura:component>
