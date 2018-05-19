@@ -43,14 +43,13 @@ public class VisualProcessGetData {
             List<Map<String, Object>> retFlow = new List<Map<String, Object>>(); 
             Map<String, Object> c; 
 
-
-            
             List<VisualProcessComponent__c> cmps = [SELECT Id, Name,
                                                         Label__c,
                                                         Parent__c,
                                                         Type__r.Name,
                                                         Position__c,
-                                                        IsContainer__c
+                                                        IsContainer__c,
+                                                        (SELECT Id, Name, Label__c,Type__r.Name, Type__r.Label__c,Position__c FROM Visual_Process_Components__r ORDER BY Position__c ASC)
                                                     FROM VisualProcessComponent__c
                                                     WHERE Visual_Process__c = :visualProcessId
                                                     ORDER By Position__c];
@@ -64,11 +63,27 @@ public class VisualProcessGetData {
                     c.put('sfId', cmp.Id);
                     c.put('name', cmp.Name);
                     c.put('label', cmp.Label__c);
-                    c.put('type', 'step');
+                    c.put('type', cmp.Type__r.Name);
                     c.put('position', cmp.Position__c);
-                    c.put('childs', new List<Map<String, Object>>());
+                    //c.put('childs', new List<Map<String, Object>>());
                     c.put('isContainer', cmp.IsContainer__c);
                     
+                    List<Map<String, Object>> childs = new List<Map<String, Object>>();
+                    Map<String, Object> mapCmp;
+
+                    for(VisualProcessComponent__c child : cmp.Visual_Process_Components__r){
+                        mapCmp = new Map<String, Object>();
+                        mapCmp.put('sfId', child.Id);
+                        mapCmp.put('name', child.Name);
+                        mapCmp.put('label', child.Label__c);
+                        mapCmp.put('type', child.Type__r.Name);
+                        mapCmp.put('position', child.Position__c);
+                        mapCmp.put('typeLabel', child.Type__r.Label__c);
+                        childs.add(mapCmp);
+                    }
+
+                    c.put('childs', childs);
+
                     retFlow.add(c);
                 }
             }

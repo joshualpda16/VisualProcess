@@ -1,0 +1,17 @@
+<apex:page >
+    <apex:includeScript value="/lightning/lightning.out.js" />
+    
+    <div id="lightning" />
+
+    <script>
+        $Lightning.use("c:VisualProcessRendererApp", function() {
+          $Lightning.createComponent("c:VisualProcessRendererApp",
+          { label : "" },
+          "lightning",
+          function(cmp) {
+            // do some stuff
+          });
+        });
+    </script>
+    
+</apex:page>

@@ -1,6 +1,5 @@
 ({
 	addComponent : function(cmp) {
-		console.log('Adding component: ', cmp);
 		var appEvent = $A.get("e.c:VisualProcessEventAddComponent");
 
         appEvent.setParams({
@@ -8,10 +7,11 @@
 			"label":cmp.label,
             "type":cmp.type,
 			"id":cmp.id,
-			"parent":null,
+			"parent":cmp.parent,
 			"sfId":cmp.sfId,
 			"isContainer":cmp.isContainer,
-			"position":cmp.position
+			"position":cmp.position,
+			"childs":cmp.childs
         });
         
         appEvent.fire();

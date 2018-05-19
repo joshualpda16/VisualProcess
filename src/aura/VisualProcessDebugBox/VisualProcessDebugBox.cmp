@@ -1,7 +1,7 @@
 <aura:component >
     <aura:attribute type="String" name="debugText" default="Debug text" />
     
-    <aura:handler event="c:VisualProcessEventAddComponent" action="{!c.eventAddStep}"/>
+    <aura:handler event="c:VisualProcessEventAddComponent" action="{!c.eventAddComponent}"/>
     <aura:handler event="c:VisualProcessEventRemoveComponent" action="{!c.eventRemoveStep}"/>
     <aura:handler event="c:VisualProcessEventEditComponent" action="{!c.eventEditComponent}"/>
     <aura:handler event="c:VisualProcessEventHidePane" action="{!c.eventHidePane}"/>

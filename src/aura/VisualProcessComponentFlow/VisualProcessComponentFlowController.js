@@ -32,6 +32,13 @@
                     for(i = 0; i < okIds.length; i++)
                         helper.showReadyIcon(okIds[i]); 
                 }, 500);
+            } else{
+                var errors = response.getError();
+                if (errors)
+                    if (errors[0] && errors[0].message)
+                        console.log("Error message: " + errors[0].message);
+                else
+                    console.log("Unknown error");
             }
         });
 
@@ -178,11 +185,12 @@
         var flowComponents = component.get("v.flowComponents");
         var newChild = component.get("v.newChild");
         var x;
-        
-        newChild.parent = objStep.sfId;
 
         for(x=0; x<flowComponents.length;x++)
             if(flowComponents[x].id == objStep.id){
+                newChild.position = flowComponents[x].childs.length+1;
+                newChild.parent = objStep.sfId;
+                newChild.isContainer = false;
                 flowComponents[x].childs.push(newChild);
                 break;
             }

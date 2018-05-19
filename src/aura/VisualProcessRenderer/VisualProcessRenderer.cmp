@@ -6,7 +6,7 @@
     <aura:attribute name="recordId" type="String" />
     <aura:attribute name="childs" type="List" default="[]"/>
 
-    <div id="vpc-preview-container">
+    <div class="vpc-preview-container">
         <div class="slds-path">
             <div class="slds-grid slds-path__track">
                 <div class="slds-grid slds-path__scroller-container">
@@ -40,12 +40,10 @@
                 </aura:iteration>
             </div>
         </div>
-
-        <div style="width: 100%;">
-            <div class="slds-docked-form-footer">
-                <button type="button" class="slds-button slds-button_neutral">Previous</button>
-                <button type="button" class="slds-button slds-button_brand">Next</button>
-            </div>
+        
+        <div class="slds-docked-form-footer">
+            <button type="button" class="slds-button slds-button_neutral">Previous</button>
+            <button type="button" class="slds-button slds-button_brand">Next</button>
         </div>
     </div>
 
