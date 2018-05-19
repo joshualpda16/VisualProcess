@@ -3,6 +3,7 @@
     <aura:attribute name="steps" type="List" access="global" />
     <aura:attribute name="childs" type="List" access="global" />
     <aura:attribute name="activeStep" type="Integer" access="global" />
+    <aura:attribute name="buttons" type="Object" access="global" />
 
     <aura:handler event="c:VisualProcessEventAddComponent" action="{!c.addComponentHandler}" />
     <aura:handler event="c:VisualProcessEventRemoveComponent" action="{!c.removeComponentHandler}" />
@@ -32,7 +33,7 @@
                                         </a>
                                     </li>
                                 </aura:iteration>
-                            </ul>
+                            </ul> 
                         </div>
                     </div>
                 </div>
@@ -51,8 +52,14 @@
 
         <div style="width: 100%;">
             <div class="slds-docked-form-footer">
-                <button type="button" class="slds-button slds-button_neutral">Previous</button>
-                <button type="button" class="slds-button slds-button_brand">Next</button>
+
+                <aura:if isTrue="{!v.buttons.previous.show}">
+                    <button type="button" class="slds-button slds-button_neutral">{!v.buttons.previous.name}</button>
+                </aura:if>
+
+                <aura:if isTrue="{!v.buttons.next.show}">
+                    <button type="button" class="slds-button slds-button_brand">{!v.buttons.next.name}</button>
+                </aura:if>
             </div>
         </div>
     </div>

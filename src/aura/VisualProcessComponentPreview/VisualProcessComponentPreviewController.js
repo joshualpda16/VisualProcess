@@ -1,6 +1,18 @@
 ({
 	doInit: function(component, event, helper) {
         var steps = [];
+        var buttons = {
+            "next" : {
+                show : true,
+                name : "Siguiente"
+            },
+            "previous" : {
+                show : true,
+                name : "Anterior"
+            }
+        };
+
+        component.set("v.buttons",buttons);
         component.set("v.steps", steps);
     },
 
