@@ -27,7 +27,7 @@
                     console.log("Unknown error");
             }
         });
-
+ 
         $A.enqueueAction(action);
 
         var buttons = {
@@ -45,45 +45,10 @@
     },
     
     doNext : function(component, event, helper) {
-        var steps = component.get("v.flowComponents");
-        var buttons = component.get("v.buttons");
-
-        for (var i = 0; i < steps.length; i++) {
-            if(steps[i].current){
-                steps[i].isActive = true;
-                steps[i].current = false;
-                steps[i+1].current = true;
-
-                buttons.previous.show = (steps[i+1].position != 1);
-                buttons.next.show = (steps[i+1].position != steps.length);
-        
-                component.set("v.buttons",buttons);
-                component.set("v.flowComponents", steps);
-                component.set("v.childs", steps[i+1].childs);
-                break;
-            }
-        }
+        helper.moveStep(component, 'doNext');
     },
 
     doPrev : function(component, event, helper) {
-        var steps = component.get("v.flowComponents");
-        var buttons = component.get("v.buttons");
-
-        for (var i = 0; i < steps.length; i++) {
-            if(steps[i].current){
-                steps[i].isActive = false;
-                steps[i].current = false;
-                steps[i-1].current = true;
-                steps[i-1].isActive = false;
-
-                buttons.previous.show = (steps[i-1].position != 1);
-                buttons.next.show = (steps[i-1].position != steps.length);
-        
-                component.set("v.buttons",buttons);
-                component.set("v.flowComponents", steps);
-                component.set("v.childs", steps[i-1].childs);
-                break;
-            }
-        }
+        helper.moveStep(component, 'doPrev');
     }
 })
