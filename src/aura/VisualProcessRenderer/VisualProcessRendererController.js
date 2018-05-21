@@ -3,6 +3,16 @@
         var action = component.get("c.getFlow");
         var activeChilds
         var flowComponents = [];
+        var buttons = {
+            "next" : {
+                show : true,
+                name : "Siguiente"
+            },
+            "previous" : {
+                show : false,
+                name : "Anterior"
+            }
+        };
         
         action.setParams({visualProcessId : 'a0H6A000004Kd0CUAS'});
 
@@ -17,6 +27,7 @@
                     }
                     component.set("v.childs", allValues[0].childs);
                     component.set("v.flowComponents", flowComponents);
+                    component.set("v.buttons",buttons);
                 }
             } else{
                 var errors = response.getError();
@@ -26,22 +37,12 @@
                 else
                     console.log("Unknown error");
             }
+
+            var spinner = component.find("mySpinner");            
+            $A.util.toggleClass(spinner, "slds-hide");
         });
  
         $A.enqueueAction(action);
-
-        var buttons = {
-            "next" : {
-                show : true,
-                name : "Siguiente"
-            },
-            "previous" : {
-                show : false,
-                name : "Anterior"
-            }
-        };
-
-        component.set("v.buttons",buttons);
     },
     
     doNext : function(component, event, helper) {

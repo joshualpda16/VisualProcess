@@ -7,6 +7,8 @@
     <aura:attribute name="childs" type="List" default="[]"/>
     <aura:attribute name="buttons" type="Object" access="global" />
 
+    <lightning:spinner aura:id="mySpinner" variant="brand" size="large"/>    
+
     <div class="vpc-preview-container">
         <div class="slds-path">
             <div class="slds-grid slds-path__track">
