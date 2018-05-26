@@ -66,9 +66,12 @@ public class VisualProcessComponentsUpdateController{
     @AuraEnabled
     public static Boolean removeStep(String sfId){
         try{
-            VisualProcessComponent__c cmp = new VisualProcessComponent__c(Id = sfId);
+            VisualProcessComponent__c cmps = [SELECT Id, (SELECT Id FROM Visual_Process_Components__r)
+                                                FROM VisualProcessComponent__c
+                                               WHERE Id = :sfId];
             
-            delete cmp;
+            delete cmps.Visual_Process_Components__r;
+            delete cmps;
             
             return true; 
         } catch(Exception ex){
