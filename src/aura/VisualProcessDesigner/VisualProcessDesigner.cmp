@@ -1,10 +1,17 @@
 <aura:component >
     <aura:handler event="c:VisualProcessEventHidePane" action="{!c.hideEventHandler}"/>
-    
+    <aura:handler event="c:VisualProcessEventShowModalConfig" action="{!c.showModalConfig}"/>
+
+    <aura:attribute name="modalConfigShow" type="Boolean" default="false"/>
+    <aura:attribute name="modalConfigHeader" type="Boolean" default="Error - No header"/>
+
+    <c:VisualProcessModalConfig show="{!v.modalConfigShow}" header="{!v.modalConfigHeader}"/>  
+
     <div class="slds-scope vp-general-container">
-        <div class="slds-box slds-box_small slds-m-horizontal_small slds-m-top_small vp-general-debugbox">
+        <!-- <div class="slds-box slds-box_small slds-m-horizontal_small slds-m-top_small vp-general-debugbox">
             <c:VisualProcessDebugBox ></c:VisualProcessDebugBox>
-        </div>
+        </div> -->
+
         <div class="slds-grid slds-gutters slds-p-left_small vpc-col-container">
             <div aura:id="ComponentSelector" class="slds-col vp-general-column slds-size_2-of-12 slds-m-vertical_small slds-m-left--small">
                 <div class="slds-box padding-none">
@@ -23,7 +30,7 @@
                 </div>
             </div>
             <div aura:id="ComponentPreview" class="slds-col vp-general-column slds-m-vertical_small slds-m-right--large slds-m-left--small">
-                <div class="slds-box">
+                <div class="slds-box padding-none">
                     <span class="content"><c:VisualProcessComponentPreview ></c:VisualProcessComponentPreview></span>
                 </div>
             </div>

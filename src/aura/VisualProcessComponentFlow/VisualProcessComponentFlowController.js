@@ -1,4 +1,16 @@
 ({
+    showVisualProcessConfigModal : function(){
+        var appEvent = $A.get("e.c:VisualProcessEventShowModalConfig");
+        
+        appEvent.setParams({
+            "header":"Visual Process Config"
+        });
+        
+        appEvent.fire();
+
+        console.log('Event fired: ', appEvent);
+    },
+
     doInit: function(component, event, helper) {
         var action = component.get("c.getFlow");
         var flowComponents = [], okIds = [];

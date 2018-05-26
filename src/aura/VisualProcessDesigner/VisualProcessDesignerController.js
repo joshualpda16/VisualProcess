@@ -1,4 +1,5 @@
 ({
+
 	hideEventHandler : function(component, event, helper) {
         var receivedPane = event.getParam("pane");
         
@@ -17,5 +18,19 @@
         
         var pane = component.find(panelName);
         helper.longComponent(pane);
+	},
+        
+	showModal : function(component){
+		component.set('v.modalConfigShow', true);
+	},
+
+	showModalConfig : function(component, event, helper) {
+		var header = event.getParam('header');
+		//var component = event.getParam('component');
+
+		console.log('Received header: ', header);
+		
+		component.set('v.modalConfigHeader', header);
+		component.set('v.modalConfigShow', true);
 	}
 })

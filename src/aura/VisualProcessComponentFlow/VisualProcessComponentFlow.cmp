@@ -12,6 +12,7 @@
     <aura:handler event="c:VisualProcessEventNotifyUpdate" action="{!c.notifyUpdateHandler}" />
     <aura:handler event="c:VisualProcessEventAddingComponent" action="{!c.addingComponentHandler}" />
 
+    <aura:registerEvent name="VisualProcessConfigModal" type="c:VisualProcessEventShowModalConfig" />
     <aura:registerEvent name="AddComponentEvent" type="c:VisualProcessEventAddComponent" />
     <aura:registerEvent name="RemoveComponentEvent" type="c:VisualProcessEventRemoveComponent" />
     <aura:registerEvent name="EditComponentEvent" type="c:VisualProcessEventEditComponent" />
@@ -28,7 +29,7 @@
                     alternativeText="Add step below" />
             </div>
             <div class="slds-float_left slds-m-right_xx-small">
-                <lightning:buttonIcon class="slds-button_icon-border-filled" iconName="utility:custom_apps" onclick="{!c.openVpSettings}"
+                <lightning:buttonIcon class="slds-button_icon-border-filled" iconName="utility:custom_apps" onclick="{!c.showVisualProcessConfigModal}"
                     variant="bare" alternativeText="Visual Process Settings" />
             </div>
             <div class="slds-float_left">
