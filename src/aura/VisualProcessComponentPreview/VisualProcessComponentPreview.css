@@ -1,6 +1,6 @@
 .THIS {
     background: white;
-    height: 100%;
+    height: calc(100% - 20px);
 }
 
 .THIS .slds-docked-form-footer{
@@ -9,6 +9,7 @@
 
 .THIS .slds-path__nav{
     margin-right: 0px;
+    margin-top: 12px;
 }
 
 .THIS .slds-docked-form-footer{
@@ -16,5 +17,6 @@
 }
 
 .THIS .vpc-body-step{
-    height: calc(100% - 34px - 48px);
+    height: calc(100% - 92px);
+    overflow: auto; 
 }

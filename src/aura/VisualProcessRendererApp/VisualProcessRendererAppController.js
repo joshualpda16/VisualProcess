@@ -15,7 +15,7 @@
         
         console.log(urlParameters);
 
-        if(urlParameters.ltn_app_id !== ""){
+        if(urlParameters.ltn_app_id && urlParameters.ltn_app_id !== ""){
             document.body.parentElement.style.marginLeft = '-20px';
         } else{
             document.body.parentElement.style.marginLeft = '-8px';
