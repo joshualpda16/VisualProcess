@@ -5,7 +5,7 @@
 
     <script>
         $Lightning.use("c:VisualProcessRendererApp", function() {
-          $Lightning.createComponent("c:VisualProcessRendererApp",
+          $Lightning.createComponent("c:VisualProcessRenderer",
           { label : "" },
           "lightning",
           function(cmp) {
