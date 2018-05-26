@@ -1,5 +1,6 @@
 ({
     doInit : function(component, event, helper) {
+
         var sPageURL = decodeURIComponent(window.location.search.substring(1)); //You get the whole decoded URL of the page.
         var sURLVariables = sPageURL.split('&'); //Split by & so that you get the key value pairs separately in a list
         var i, sParameterName;
@@ -13,5 +14,11 @@
         component.set("v.urlParameters", urlParameters);
         
         console.log(urlParameters);
+
+        if(urlParameters.ltn_app_id !== ""){
+            document.body.parentElement.style.marginLeft = '-20px';
+        } else{
+            document.body.parentElement.style.marginLeft = '-8px';
+        }
     }
 })
