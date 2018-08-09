@@ -1,3 +1,4 @@
+//Author: Joshua Juanchini
 public class VisualProcessComponentsUpdateController{
     
     @AuraEnabled
@@ -25,7 +26,7 @@ public class VisualProcessComponentsUpdateController{
     } 
 
     @AuraEnabled
-    public static Boolean updatePositions(Map<String, Object> cmps){
+    public static Boolean updatePositions(Map<String, Object> cmps){ 
         /*
             'cmps' : [
                 {
