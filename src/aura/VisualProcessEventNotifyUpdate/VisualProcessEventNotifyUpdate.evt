@@ -1,0 +1,6 @@
+<aura:event type="APPLICATION">
+    <aura:attribute name="id" type="String"/>
+    <aura:attribute name="type" type="String"/>
+    <aura:attribute name="success" type="Boolean"/>
+    <aura:attribute name="message" type="String"/>
+</aura:event>

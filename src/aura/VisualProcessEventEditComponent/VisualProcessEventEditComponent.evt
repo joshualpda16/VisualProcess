@@ -1,0 +1,8 @@
+<aura:event type="APPLICATION">
+    <aura:attribute name="name" type="String"/>
+    <aura:attribute name="id" type="String"/>
+    <aura:attribute name="type" type="String"/>
+    <aura:attribute name="sfId" type="String"/>
+    <aura:attribute name="parentId" type="String"/>
+    <aura:attribute name="childs" type="List"/>
+</aura:event>

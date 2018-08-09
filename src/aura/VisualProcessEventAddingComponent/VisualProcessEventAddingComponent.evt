@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION">
+    <aura:attribute name="type" type="String"/>
+    <aura:attribute name="label" type="String"/>
+</aura:event>

@@ -1,0 +1,11 @@
+<aura:event type="APPLICATION">
+    <aura:attribute name="name" type="String"/>
+    <aura:attribute name="label" type="String"/>
+    <aura:attribute name="id" type="String"/>
+    <aura:attribute name="type" type="String"/>
+    <aura:attribute name="parent" type="String"/>
+    <aura:attribute name="sfId" type="String"/>
+    <aura:attribute name="position" type="Integer"/>    
+    <aura:attribute name="childs" type="List"/>    
+    <aura:attribute name="isContainer" type="Boolean"/>    
+</aura:event>
