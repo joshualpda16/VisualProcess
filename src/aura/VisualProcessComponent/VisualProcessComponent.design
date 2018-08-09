@@ -1,0 +1,3 @@
+<design:component label="Visual Process Component">
+    <design:attribute name="VisualProcessId" datasource="apex://VisualProcessComponentDynamicPicklist"/>
+</design:component> 
