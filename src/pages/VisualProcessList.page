@@ -1,0 +1,14 @@
+<apex:page standardController="Visual_Process__c" recordSetVar="vps">
+    <head>
+        <apex:slds />
+    </head>
+    <body>
+        
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{! vps }" var="vp">
+                <apex:column value="{! vp.Name }"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+    </body>
+</apex:page>
