@@ -1,5 +1,7 @@
 <aura:component controller="VisualProcessGetData" implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" access="global" >
     
+    <aura:attribute name="visualProcessId" type="String" access="public" />
+    
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     
     <aura:attribute name="flowComponents" type="List" />
@@ -9,7 +11,7 @@
 
     <lightning:spinner aura:id="mySpinner" variant="brand" size="large"/>    
 
-    <div class="vpc-preview-container">
+    <div class="vpc-preview-container slds-m-top--small">
         <div class="slds-path">
             <div class="slds-grid slds-path__track">
                 <div class="slds-grid slds-path__scroller-container">

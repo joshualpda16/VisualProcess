@@ -40,6 +40,8 @@ public class VisualProcessGetData {
         */
         
         try{
+        	System.debug('visualProcessId: ' + visualProcessId);
+        	
             List<Map<String, Object>> retFlow = new List<Map<String, Object>>(); 
             Map<String, Object> c; 
 
@@ -54,8 +56,10 @@ public class VisualProcessGetData {
                                                     WHERE Visual_Process__c = :visualProcessId
                                                     ORDER By Position__c];
 
+			System.debug('cmps: ' + cmps);
+
             if(cmps.size() == 0)
-                return null;
+                throw new AuraHandledException('No configured components');
 
             for(VisualProcessComponent__c cmp : cmps){
                 if(cmp.Type__r.Name == 'step'){
@@ -89,7 +93,8 @@ public class VisualProcessGetData {
             }
     
             return retFlow;
-
+        } catch(AuraHandledException aEx){
+			throw aEx;
         } catch(Exception ex){
             throw new AuraHandledException('Exception: ' + ex.getMessage() + ' - ' + ex.getStackTraceString());
         }

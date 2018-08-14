@@ -1,6 +1,6 @@
 ({
 	doInit : function(component, event, helper) {
-        var action = component.get("c.getFlow");
+		var action = component.get("c.getFlow");
         var activeChilds
         var flowComponents = [];
         var buttons = {
@@ -14,11 +14,20 @@
             }
         };
         
-        action.setParams({visualProcessId : 'a0H6A000004Kd0CUAS'});
+        var visualProcessId = component.get("v.visualProcessId");
+        
+        action.setParams({
+        	visualProcessId : visualProcessId
+    	});
 
         action.setCallback(this, function(response) {
             if (response.getState() == "SUCCESS") {
 				var allValues = response.getReturnValue();
+				
+				console.log('allValues', allValues);
+				console.log('response', response);
+				console.log('action.setParams', action.getParams());
+				
 
                 if(allValues != null){
                     for (var i = 0; i < allValues.length; i++) {
